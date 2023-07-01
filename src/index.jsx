@@ -1,4 +1,4 @@
-import { View, SafeAreaView, ActivityIndicator } from 'react-native'
+import { View, ActivityIndicator } from 'react-native'
 import Navigation from './navigation'
 import { Provider } from 'react-redux'
 import { store } from './store'
@@ -33,9 +33,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <SafeAreaView style={styles.container}>
-        <Navigation />
-      </SafeAreaView>
+      <Navigation />
     </Provider>
   )
 }
