@@ -1,4 +1,4 @@
-import { getCurrentPositionAsync, requestForegroundPermissionsAsync } from 'expo-location'
+import { getLastKnownPositionAsync, requestForegroundPermissionsAsync } from 'expo-location'
 import { useEffect, useState } from 'react'
 import { View, Text, Alert } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -29,8 +29,7 @@ const LocationSelector = ({ onLocation }) => {
     const hasLocationPermission = await verifyLocationPermissions()
     if (!hasLocationPermission) return
 
-    const location = await getCurrentPositionAsync({
-      accuracy: 6,
+    const location = await getLastKnownPositionAsync({
       timeout: 5000
     })
 
