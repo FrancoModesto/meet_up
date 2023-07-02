@@ -30,7 +30,9 @@ const LocationSelector = ({ onLocation }) => {
     if (!hasLocationPermission) return
 
     const location = await getLastKnownPositionAsync({
-      timeout: 5000
+      timeout: 5000,
+      accuracy: 6,
+      maximumAge: 10000
     })
 
     const { latitude, longitude } = location.coords
