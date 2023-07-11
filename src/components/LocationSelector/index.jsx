@@ -1,4 +1,4 @@
-import { getLastKnownPositionAsync, requestForegroundPermissionsAsync } from 'expo-location'
+import * as Location from 'expo-location'
 import { useEffect, useState } from 'react'
 import { View, Text, Alert } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -16,7 +16,7 @@ const LocationSelector = ({ onLocation }) => {
   const [pickedLocation, setPickedLocation] = useState(null)
 
   const verifyLocationPermissions = async () => {
-    const { status } = await requestForegroundPermissionsAsync()
+    const { status } = await Location.requestForegroundPermissionsAsync()
     if (status !== 'granted') {
       Alert.alert('Permission denied', 'We need permissions to access the location', [{ text: 'Ok' }])
       return false
@@ -29,10 +29,11 @@ const LocationSelector = ({ onLocation }) => {
     const hasLocationPermission = await verifyLocationPermissions()
     if (!hasLocationPermission) return
 
-    const location = await getLastKnownPositionAsync({
-      timeout: 5000,
-      accuracy: 6,
-      maximumAge: 10000
+    const location = await Location.getCurrentPositionAsync({
+      enableHighAccuracy: true,
+      accuracy: Location.Accuracy.Highest,
+      maximumAge: 10000,
+      timeout: 5000
     })
 
     const { latitude, longitude } = location.coords
